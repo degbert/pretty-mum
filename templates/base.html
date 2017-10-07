@@ -2,6 +2,60 @@
 
 {% block title %}Pretty Mum{% endblock %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+{% endblock %}
+
+
+
+
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.2.1/jq-3.2.1/jszip-2.5.0/dt-1.10.16/b-1.4.2/b-colvis-1.4.2/b-flash-1.4.2/b-html5-1.4.2/b-print-1.4.2/datatables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+    // DataTable
+    var table = $('#example').DataTable({
+        dom: 'Bfrtlip',
+        buttons: [
+            'colvis',
+            'csv',
+            'excel',
+            'pdf',
+            'copy',
+            'print'
+        ],
+        destroy:true
+    });
+
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+    $('#example tfoot tr').appendTo('#example thead');
+} );
+    </script>
+{% endblock %}
+
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
@@ -13,7 +67,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Flasky</a>
+            <a class="navbar-brand" href="/">Elastic Overtime Report</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
