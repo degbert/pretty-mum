@@ -39,8 +39,9 @@ def hello_world():
                            body={
                                "from": 0, "size": 10000,
                                "query": {
-                                   "match" : {
-                                        "chain" : form.data['chain']
+                                   "query_string" : {
+                                       "query" : "chain:" + form.data['chain'] + "* org:" + form.data['org'] + "*",
+                                       "default_operator" : "AND"
                                         }
                                     }
                                 }

@@ -8,4 +8,5 @@ import os
 class SearchForm(FlaskForm):
     #chain = SelectField("Chain")
     chain = StringField("Chain")
+    org = StringField("Org")
     submit = SubmitField("Submit")
