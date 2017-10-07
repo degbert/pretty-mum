@@ -1,34 +1,47 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Overtime Summary{% endblock %}
 
 {% block page_content %}
-
-    <div class="row-fluid">
-        <table class='table' id='example'>
-            <thead>
-                <tr>
-                {% for header in the_category %}
-                    <th>{{ header }}</th>
-                {% endfor %}
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                {% for header in the_category %}
-                    <th>{{ header }}</th>
-                {% endfor %}
-                </tr>
-            </tfoot>
-            <tbody>
-            {% for list in the_result %}
-                <tr>
-                {% for elem in list %}
-                    <td>{{ elem }}</td>
-                {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+<div class="row-fluid">
+    <div class="col-md-2">
+        {{ wtf.quick_form(form) }}
     </div>
+    <div class="col-md-10">
+        <div class="row-fluid">
+            <table class='table' id='example'>
+                <thead>
+                    <tr>
+                    {% if the_category %}
+                        {% for header in the_category %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    {% endif %}
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                    {% if the_category %}
+                        {% for header in the_category %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    {% endif %}
+                    </tr>
+                </tfoot>
+                <tbody>
+                {% if the_result %}
+                {% for list in the_result %}
+                    <tr>
+                    {% for elem in list %}
+                        <td>{{ elem }}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
