@@ -1,11 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-from aws_requests_auth.aws_auth import AWSRequestsAuth
-from elasticsearch import Elasticsearch, RequestsHttpConnection
+from elasticsearch import Elasticsearch
 from search_form import SearchForm
-
-
-from datetime import datetime
 import certifi
 
 app = Flask(__name__)
@@ -46,20 +42,14 @@ def hello_world():
                                     }
                                 }
                             )
-        #print(result)
         result_list = result['hits']['hits']
         parsed_result_list = []
         parsed_category_list = result['hits']['hits'][0]['_source'].keys()
-        counter = 0
         for i in result_list:
             for k,v in i.items():
-                if counter == 4:
+                if k == u'_source':
                     parsed_result_list.append(v.values())
-                counter +=1
-                if counter == 5:
-                    counter = 0
-        #print(parsed_category_list)
-        #print(parsed_result_list)
+
     return render_template('result.html',
                            form = form,
                            the_category = parsed_category_list,
