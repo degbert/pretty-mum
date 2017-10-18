@@ -36,7 +36,7 @@ def hello_world():
                                "from": 0, "size": 10000,
                                "query": {
                                    "query_string" : {
-                                       "query" : "chain:" + form.data['chain'] + "* org:" + form.data['org'] + "*",
+                                       "query" : form.data['free_text'] + " chain:" + form.data['chain'] + "* org:" + form.data['org'] + "*",
                                        "default_operator" : "AND"
                                         }
                                     }

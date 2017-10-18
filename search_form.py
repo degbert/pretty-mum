@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import os
 
 class SearchForm(FlaskForm):
-    #chain = SelectField("Chain")
+    free_text = StringField("Free text search")
     chain = StringField("Chain")
     org = StringField("Org")
     submit = SubmitField("Submit")
